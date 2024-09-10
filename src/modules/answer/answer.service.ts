@@ -13,12 +13,12 @@ export class AnswerService {
     return await this.answerRepository.save(created_answer);
   }
 
-  async getAnswerById(id: number){
+  async getAnswerById(id: number): Promise<IAnswer[]>{
     const result = await this.answerRepository.findBy({id});
     return result;
   }
 
-  async getAnswers(){
+  async getAnswers(): Promise<IAnswer[]>{
     const result = await this.answerRepository.find();
     return result;
   }
