@@ -4,4 +4,12 @@ export interface IQuiz {
   created_at: Date;
   description: string;
   encrypted_data: string;
+  rules: any
+}
+
+export type QuizRules = {
+  grade: string;
+  compare: string;
+  message?: string;
+  title?: string;
 }
