@@ -36,6 +36,8 @@ export class QuizService {
   }
 
   async updateQuiz(quiz: QuizUpdateDto): Promise<UpdateResult> {
+    if (quiz.rules)
+      quiz.rules = JSON.stringify(quiz.rules);
     const result = await this.quizRepository.update({ id: quiz.id }, quiz)
     return result;
   }
