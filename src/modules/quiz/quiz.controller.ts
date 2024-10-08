@@ -3,7 +3,9 @@ import { QuizService } from "./quiz.service";
 import { IQuiz } from "./quiz.interface";
 import { DeleteResult, EntitySchema, UpdateResult } from "typeorm";
 import { QuizUpdateDto } from "./dtos/quizUpdate.dto";
+import { AuthGuard } from "../auth/auth.guard";
 
+@UseGuards(AuthGuard)
 @Controller('quiz')
 export class QuizController {
   constructor(private readonly quizService: QuizService) { }
