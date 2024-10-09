@@ -1,5 +1,5 @@
 import { User } from "../user";
 
-export class UserCreateDto extends User{
+export class UserWithIdDto extends User {
   id: number;
 }

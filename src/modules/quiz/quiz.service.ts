@@ -4,12 +4,16 @@ import { DeleteResult, Repository, UpdateResult } from "typeorm";
 import { Quiz } from "./quiz.entity";
 import { InjectRepository } from "@nestjs/typeorm";
 import { QuizUpdateDto } from "./dtos/quizUpdate.dto";
+import { AuthGuard } from "../auth/auth.guard";
+import { Request } from 'express';
 
 @Injectable()
 export class QuizService {
-  constructor(@InjectRepository(Quiz) private readonly quizRepository: Repository<Quiz>) { }
+  constructor(@InjectRepository(Quiz) private readonly quizRepository: Repository<Quiz>, private readonly authGuard: AuthGuard) { }
 
-  async createQuiz(quiz: IQuiz): Promise<any> {
+  async createQuiz(quiz: IQuiz, request: Request): Promise<any> {
+    const id = await this.authGuard.extractUserFromHeader(request);
+    quiz.user_id = id;
     quiz.rules = JSON.stringify(quiz.rules);
     const created_quiz = this.quizRepository.create(quiz);
     return this.quizRepository.save(created_quiz);

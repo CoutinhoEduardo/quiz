@@ -1,9 +1,8 @@
 import { Column, PrimaryGeneratedColumn, Entity } from "typeorm";
 import { Answer } from "./answer";
-import { Optional } from "@nestjs/common";
 
-@Entity({name: 'answer'})
-export class AnswerEntity extends Answer {
+@Entity({ name: 'answer' })
+export class AnswerEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -14,8 +13,8 @@ export class AnswerEntity extends Answer {
   user_id: string;
 
   @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
-  created_at: Date; 
-  
+  created_at: Date;
+
   @Column()
   encrypted_data: string;
 
@@ -24,4 +23,7 @@ export class AnswerEntity extends Answer {
 
   @Column()
   type: string;
+
+  @Column()
+  rules: string;
 }

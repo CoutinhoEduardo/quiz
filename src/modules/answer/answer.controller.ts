@@ -1,23 +1,24 @@
-import { Body, Controller, Get, Param, Post } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Req } from "@nestjs/common";
 import { AnswerService } from "./answer.service";
 import { IAnswer } from "./answer.interface";
+import { Request } from "express";
 
 @Controller('answer')
-export class AnswerController{
-  constructor(private readonly answerService: AnswerService){}
+export class AnswerController {
+  constructor(private readonly answerService: AnswerService) { }
 
   @Post()
-  createAnswer(@Body() answer: IAnswer){
-    return this.answerService.createAnswer(answer);
+  createAnswer(@Body() answer: IAnswer, @Req() request: Request) {
+    return this.answerService.createAnswer(answer, request);
   }
 
   @Get(":id")
-  getAnswerById(@Param("id") id: number){
-    return this.answerService.getAnswerById(id); 
+  getAnswerById(@Param("id") id: number) {
+    return this.answerService.getAnswerById(id);
   }
 
   @Get()
-  getAnswers(){
-   return this.answerService.getAnswers(); 
+  getAnswers() {
+    return this.answerService.getAnswers();
   }
 }

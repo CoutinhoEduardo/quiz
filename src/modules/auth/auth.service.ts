@@ -1,6 +1,9 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import { LoginDto } from './dto/login.dto';
+import { UserService } from '../user/user.service';
+import { Md5 } from 'ts-md5'
 
 @Injectable()
 export class AuthService {
@@ -8,20 +11,31 @@ export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
+    private readonly usersService: UserService,
   ) {
     this.jwtExperationTimeInSeconds = +this.configService.get<number>(
       'JWT_EXPIRATION_TIME',
     );
   }
-  async signIn() {
+  async signIn(login: LoginDto) {
+
+    const encrypted_password = Md5.hashStr(login.password);
+    const foundUser = await this.usersService.findUserByEmail(login.email);
+    if (
+      !foundUser ||
+      encrypted_password != foundUser.senha
+    ) {
+      throw new UnauthorizedException("Senha ou login incorretos");
+    }
+
     const payload = {
-      sub: "1",
-      name: "2321",
+      sub: foundUser.id,
+      email: foundUser.email,
     };
 
     const token = this.jwtService.sign(payload);
 
-    return  token;
+    return token;
   }
 }
 

@@ -5,4 +5,5 @@ export interface IAnswer {
   encrypted_data: string;
   description: string;
   type: string;
+  rules: any;
 }

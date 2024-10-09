@@ -22,4 +22,7 @@ export class Quiz {
 
   @Column()
   rules: string;
+
+  @Column()
+  status: string;
 }
