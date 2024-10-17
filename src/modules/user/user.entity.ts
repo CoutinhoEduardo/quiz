@@ -3,8 +3,8 @@ import { User } from "./user";
 
 @Entity({ name: 'user' })
 export class UserEntity implements User {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @Column()
   nome: string;

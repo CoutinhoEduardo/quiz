@@ -1,7 +1,7 @@
 import { IUser } from "./user.interace";
 
 export class User implements IUser {
-  id: string;
+  id: number
   nome: string;
   email: string;
   senha: string;

@@ -12,8 +12,6 @@ export class UserService {
   constructor(@InjectRepository(UserEntity) private readonly userRepository: Repository<UserEntity>) { }
 
   createUser(user: IUser) {
-    const id = uuid();
-    user.id = id;
     const created_user = this.userRepository.create(user);
     return this.userRepository.save(created_user);
   }
