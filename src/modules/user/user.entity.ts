@@ -1,10 +1,10 @@
 import { Column, PrimaryGeneratedColumn, Entity } from "typeorm";
 import { User } from "./user";
 
-@Entity({name: 'user'})
-export class UserEntity implements User{
-  @PrimaryGeneratedColumn()
-  id: number;
+@Entity({ name: 'user' })
+export class UserEntity implements User {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
   nome: string;
@@ -28,7 +28,7 @@ export class UserEntity implements User{
   senha: string;
 
   @Column()
-  arquivado: number; 
+  arquivado: number;
 
   @Column()
   tipo: number;

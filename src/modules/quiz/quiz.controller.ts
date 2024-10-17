@@ -21,12 +21,12 @@ export class QuizController {
   }
 
   @Get(":id")
-  async findQuizById(@Param('id') id: number) {
+  async findQuizById(@Param('id') id: string) {
     return this.quizService.findQuizById(id);
   }
 
   @Delete(":id")
-  async deleteQuiz(@Param('id') id: number): Promise<DeleteResult> {
+  async deleteQuiz(@Param('id') id: string): Promise<DeleteResult> {
     return this.quizService.deleteQuiz(id);
   }
 

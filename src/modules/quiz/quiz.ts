@@ -1,5 +1,6 @@
 import { IQuiz, QuizRules } from "./quiz.interface";
 export class Quiz implements IQuiz {
+  id: string;
   title: string;
   user_id: string;
   description: string;

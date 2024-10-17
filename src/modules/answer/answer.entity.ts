@@ -2,9 +2,9 @@ import { Column, PrimaryGeneratedColumn, Entity } from "typeorm";
 import { Answer } from "./answer";
 
 @Entity({ name: 'answer' })
-export class AnswerEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
+export class AnswerEntity extends Answer {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column({ length: 50 })
   title: string;

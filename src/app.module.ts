@@ -12,14 +12,14 @@ import { UserEntity } from './modules/user/user.entity';
 import { AuthModule } from './modules/auth/auth.module';
 @Module({
   imports: [
-    QuizModule, 
+    QuizModule,
     AnswerModule,
     UserModule,
     AuthModule,
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory:(configService: ConfigService) => ({
+      useFactory: (configService: ConfigService) => ({
         type: 'mysql',
         host: 'localhost',
         port: 3306,
@@ -27,9 +27,9 @@ import { AuthModule } from './modules/auth/auth.module';
         password: 'root',
         database: 'quiz',
         entities: [
-            Quiz, AnswerEntity, UserEntity
+          Quiz, AnswerEntity, UserEntity
         ],
-        synchronize: true,
+        synchronize: false,
       }),
       inject: [ConfigService]
     })
@@ -37,4 +37,4 @@ import { AuthModule } from './modules/auth/auth.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }

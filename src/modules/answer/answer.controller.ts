@@ -13,7 +13,7 @@ export class AnswerController {
   }
 
   @Get(":id")
-  getAnswerById(@Param("id") id: number) {
+  getAnswerById(@Param("id") id: string) {
     return this.answerService.getAnswerById(id);
   }
 
