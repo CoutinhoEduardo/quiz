@@ -4,6 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import { LoginDto } from './dto/login.dto';
 import { UserService } from '../user/user.service';
 import { Md5 } from 'ts-md5'
+import { AuthGuard } from './auth.guard';
 
 @Injectable()
 export class AuthService {
@@ -11,7 +12,7 @@ export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
     private readonly configService: ConfigService,
-    private readonly usersService: UserService,
+    private readonly usersService: UserService
   ) {
     this.jwtExperationTimeInSeconds = +this.configService.get<number>(
       'JWT_EXPIRATION_TIME',

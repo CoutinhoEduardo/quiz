@@ -18,6 +18,9 @@ export class Quiz {
   description: string;
 
   @Column()
+  type: number;
+
+  @Column()
   encrypted_data: string;
 
   @Column()

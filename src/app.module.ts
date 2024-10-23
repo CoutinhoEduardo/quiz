@@ -10,12 +10,15 @@ import { AnswerEntity } from './modules/answer/answer.entity';
 import { UserModule } from './modules/user/user.module';
 import { UserEntity } from './modules/user/user.entity';
 import { AuthModule } from './modules/auth/auth.module';
+import { UsersQuizModule } from './modules/usuarios_questionarios/users_quiz.module';
+import { UsersQuizEntity } from './modules/usuarios_questionarios/users_quiz.entity';
 @Module({
   imports: [
     QuizModule,
     AnswerModule,
     UserModule,
     AuthModule,
+    UsersQuizModule,
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -27,7 +30,7 @@ import { AuthModule } from './modules/auth/auth.module';
         password: 'root',
         database: 'quiz',
         entities: [
-          Quiz, AnswerEntity, UserEntity
+          Quiz, AnswerEntity, UserEntity, UsersQuizEntity
         ],
         synchronize: false,
       }),

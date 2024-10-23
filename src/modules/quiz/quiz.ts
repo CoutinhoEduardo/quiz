@@ -6,6 +6,7 @@ export class Quiz implements IQuiz {
   description: string;
   created_at: Date;
   encrypted_data: string;
+  type: number;
   rules: any;
   status: string;
 }

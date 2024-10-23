@@ -5,6 +5,7 @@ export interface IQuiz {
   created_at: Date;
   description: string;
   encrypted_data: string;
+  type: number;
   rules: any;
   status: string;
 }

@@ -16,6 +16,12 @@ export class AnswerEntity extends Answer {
   created_at: Date;
 
   @Column()
+  idConsultor: string;
+
+  @Column()
+  idQuiz: string;
+
+  @Column()
   encrypted_data: string;
 
   @Column()
