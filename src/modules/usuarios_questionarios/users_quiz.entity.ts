@@ -1,6 +1,5 @@
-
-import { Column, PrimaryGeneratedColumn, Entity } from "typeorm";
-import { IUsersQuiz } from "./users_quiz.interface";
+import { Column, PrimaryGeneratedColumn, Entity } from 'typeorm';
+import { IUsersQuiz } from './users_quiz.interface';
 
 @Entity({ name: 'usuarios_questionarios' })
 export class UsersQuizEntity implements IUsersQuiz {
@@ -14,6 +13,9 @@ export class UsersQuizEntity implements IUsersQuiz {
   idUsuario: string;
 
   @Column()
+  idAnswer: string;
+
+  @Column()
   idQuestionario: string;
 
   @Column()
@@ -24,5 +26,4 @@ export class UsersQuizEntity implements IUsersQuiz {
 
   @Column()
   data: Date;
-
 }

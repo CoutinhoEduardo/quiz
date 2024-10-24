@@ -1,5 +1,13 @@
-import { Column, PrimaryGeneratedColumn, Entity } from "typeorm";
-import { Answer } from "./answer";
+import {
+  Column,
+  PrimaryGeneratedColumn,
+  Entity,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
+import { Answer } from './answer';
+import { User } from '../user/user';
+import { UserEntity } from '../user/user.entity';
 
 @Entity({ name: 'answer' })
 export class AnswerEntity extends Answer {
@@ -12,7 +20,7 @@ export class AnswerEntity extends Answer {
   @Column()
   user_id: string;
 
-  @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;
 
   @Column()
@@ -32,4 +40,8 @@ export class AnswerEntity extends Answer {
 
   @Column()
   rules: string;
+
+  @ManyToOne(() => UserEntity, (user) => user.answer) // Adicione esta linha
+  @JoinColumn({ name: 'user_id' })
+  user: UserEntity; // Adicione esta linha
 }

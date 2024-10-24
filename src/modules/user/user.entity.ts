@@ -1,5 +1,6 @@
-import { Column, PrimaryGeneratedColumn, Entity } from "typeorm";
-import { User } from "./user";
+import { Column, PrimaryGeneratedColumn, Entity, OneToMany } from 'typeorm';
+import { User } from './user';
+import { AnswerEntity } from '../answer/answer.entity';
 
 @Entity({ name: 'user' })
 export class UserEntity implements User {
@@ -35,4 +36,7 @@ export class UserEntity implements User {
 
   @Column()
   status: number;
+
+  @OneToMany(() => AnswerEntity, (answer) => answer.user) // Adicione esta linha
+  answer: AnswerEntity[]; // Adicione esta linha
 }
