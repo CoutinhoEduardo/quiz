@@ -15,6 +15,10 @@ export class UsersQuizEntity implements IUsersQuiz {
   @Column()
   idAnswer: string;
 
+
+  @Column()
+  idResposta: string;
+
   @Column()
   idQuestionario: string;
 
