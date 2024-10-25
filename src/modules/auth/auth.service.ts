@@ -21,14 +21,11 @@ export class AuthService {
     this.jwtSecret = this.configService.get<string>('JWT_SECRET');
   }
   async signIn(login: LoginDto) {
-    //const encrypted_password = Md5.hashStr(login.password);
+    const encrypted_password = Md5.hashStr(login.password);
     const foundUser = await this.usersService.findUserByEmail(login.email);
-    //if (
-    //  !foundUser ||
-    //  encrypted_password != foundUser.senha
-    //) {
-    //  throw new UnauthorizedException("Senha ou login incorretos");
-    //}
+    if (!foundUser || encrypted_password != foundUser.senha) {
+      throw new UnauthorizedException('Senha ou login incorretos');
+    }
 
     const payload = {
       sub: foundUser.id,
@@ -37,13 +34,15 @@ export class AuthService {
 
     const token = this.jwtService.sign(payload);
 
-    return token;
+    delete foundUser.senha;
+    return { token, foundUser };
   }
 
-
   async verifyToken(token: string) {
-    console.log("chegou")
-    const result = await this.jwtService.verifyAsync(token, { secret: this.jwtSecret });
+    console.log('chegou');
+    const result = await this.jwtService.verifyAsync(token, {
+      secret: this.jwtSecret,
+    });
     console.log(result.sub);
   }
 }
