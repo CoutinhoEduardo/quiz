@@ -35,11 +35,14 @@ export class AuthService {
     const token = this.jwtService.sign(payload);
 
     delete foundUser.senha;
+    delete foundUser.cartaoBandeira;
+    delete foundUser.cartaoTitular;
+    delete foundUser.cartaoToken;
+    delete foundUser.cartaoTruncado;
     return { token, foundUser };
   }
 
   async verifyToken(token: string) {
-    console.log('chegou');
     const result = await this.jwtService.verifyAsync(token, {
       secret: this.jwtSecret,
     });
