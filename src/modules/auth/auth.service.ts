@@ -4,7 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import { LoginDto } from './dto/login.dto';
 import { UserService } from '../user/user.service';
 import { Md5 } from 'ts-md5';
-import { AuthGuard } from './auth.guard';
+
 
 @Injectable()
 export class AuthService {
@@ -43,9 +43,22 @@ export class AuthService {
   }
 
   async verifyToken(token: string) {
-    const result = await this.jwtService.verifyAsync(token, {
-      secret: this.jwtSecret,
-    });
-    console.log(result.sub);
+    try {
+      const result = await this.jwtService.verifyAsync(token, {
+        secret: this.jwtSecret,
+      });
+      const user = await this.usersService.findUserById(result.sub);
+
+      delete user.senha;
+      delete user.cartaoBandeira;
+      delete user.cartaoTitular;
+      delete user.cartaoToken;
+      delete user.cartaoTruncado;
+
+      return user;
+
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 }
