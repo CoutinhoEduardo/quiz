@@ -12,6 +12,8 @@ import { UserEntity } from './modules/user/user.entity';
 import { AuthModule } from './modules/auth/auth.module';
 import { UsersQuizModule } from './modules/usuarios_questionarios/users_quiz.module';
 import { UsersQuizEntity } from './modules/usuarios_questionarios/users_quiz.entity';
+import { PedidosLoginsEntity } from './modules/entitys/pedidos-logins.entity';
+import { PedidosEntity } from './modules/entitys/pedidos.entity';
 @Module({
   imports: [
     QuizModule,
@@ -30,7 +32,7 @@ import { UsersQuizEntity } from './modules/usuarios_questionarios/users_quiz.ent
         password: 'root',
         database: 'quiz',
         entities: [
-          Quiz, AnswerEntity, UserEntity, UsersQuizEntity
+          Quiz, AnswerEntity, UserEntity, UsersQuizEntity, PedidosLoginsEntity, PedidosEntity
         ],
         synchronize: false,
       }),

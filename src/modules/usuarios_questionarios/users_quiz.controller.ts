@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Param, Post, Put, Get } from "@nestjs/common";
 import { UsersQuizService } from "./users_quiz.service";
 import { IUserQuizUpdateDto } from "./dtos/userQuizUpdate.dto";
 import { IUserQuizDoneDto } from "./dtos/IUserQuizDoneDto";
@@ -15,6 +15,11 @@ export class UsersQuizController {
   @Put('setConsolidated/:id')
   setQuizConsolidated(@Param('id') id: string) {
     return this.usersQuizService.setQuizConsolidated(id);
+  }
+
+  @Get('getQuiz/:id')
+  getQuiz(@Param('id') id: string) {
+    return this.usersQuizService.getQuiz(id);
   }
 }
 
