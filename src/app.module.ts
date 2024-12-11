@@ -1,26 +1,27 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { QuizModule } from './modules/quiz/quiz.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { Quiz } from './modules/quiz/quiz.entity';
-import { AnswerModule } from './modules/answer/answer.module';
-import { AnswerEntity } from './modules/answer/answer.entity';
 import { UserModule } from './modules/user/user.module';
-import { UserEntity } from './modules/user/user.entity';
+import { UserEntity } from './typeorm/entities/user.entity';
+import { QuizModule } from './modules/quiz/quiz.module';
+import { AnswerModule } from './modules/answer/answer.module';
+import { QuizEntity } from './typeorm/entities/quiz.entity';
+import { AnswerEntity } from './typeorm/entities/answer.entity';
 import { AuthModule } from './modules/auth/auth.module';
-import { UsersQuizModule } from './modules/usuarios_questionarios/users_quiz.module';
-import { UsersQuizEntity } from './modules/usuarios_questionarios/users_quiz.entity';
-import { PedidosLoginsEntity } from './modules/entitys/pedidos-logins.entity';
-import { PedidosEntity } from './modules/entitys/pedidos.entity';
+import { UserQuizModule } from './modules/user_quiz/user_quiz.module';
+import { EmpresaEntity } from './typeorm/entities/empresas.entity';
+import { EmpresaDepartamentoEntity } from './typeorm/entities/empresa-departamento.entity';
+import { PedidosEntity } from './typeorm/entities/pedidos.entity';
+import { PedidosLoginsEntity } from './typeorm/entities/pedidos-logins.entity';
+import { EmpresaModule } from './modules/empresa/empresa.module';
+import { UtilModule } from './modules/util/util.module';
+import { ConsultorDepartamentoEntity } from './typeorm/entities/consultores_departamento.entity';
+import { UserQuizEntity } from './typeorm/entities/user-quiz.entity';
+
 @Module({
   imports: [
-    QuizModule,
-    AnswerModule,
-    UserModule,
-    AuthModule,
-    UsersQuizModule,
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -32,12 +33,27 @@ import { PedidosEntity } from './modules/entitys/pedidos.entity';
         password: 'root',
         database: 'quiz',
         entities: [
-          Quiz, AnswerEntity, UserEntity, UsersQuizEntity, PedidosLoginsEntity, PedidosEntity
+          UserEntity,
+          UserQuizEntity,
+          QuizEntity,
+          AnswerEntity,
+          EmpresaEntity,
+          EmpresaDepartamentoEntity,
+          PedidosEntity,
+          PedidosLoginsEntity,
+          ConsultorDepartamentoEntity
         ],
-        synchronize: false,
+        synchronize: true,
       }),
       inject: [ConfigService]
-    })
+    }),
+    UserModule,
+    QuizModule,
+    AnswerModule,
+    AuthModule,
+    UserQuizModule,
+    EmpresaModule,
+    UtilModule
   ],
   controllers: [AppController],
   providers: [AppService],
