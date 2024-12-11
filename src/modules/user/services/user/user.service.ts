@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from 'src/typeorm/entities/user.entity';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { CreateUserDto } from '../../dtos/create-user.dto';
 
 @Injectable()
@@ -26,5 +26,15 @@ export class UserService {
 
   async findUserById(id: string) {
     return this.userRepository.findOneById(id);
+  }
+
+  async findUsersById(ids: number): Promise<Array<UserEntity>> {
+    if (!Array.isArray(ids) || ids.length === 0) {
+      throw new Error("O parâmetro 'ids' deve ser um array não vazio.");
+    }
+    const result = await this.userRepository.find({
+      where: { id: In(ids) }
+    });
+    return result;
   }
 }
